@@ -1,8 +1,10 @@
-# CloutFeed - The first BitClout mobile app for iOS & Android
+# PostaN - The DESO mobile app
 
-CloutFeed is an open-source mobile app built on the top of [the BitClout blockchain](https://docs.bitclout.com/). A decentralized social media platform where everyone has his own digital coin. These creator coins are tied to the reputation of an individual. You can build your own personal brand on the top of them while connecting and socializing with other creators in a new decentralized way!
+PostaN is a user friendly mobile application that allows users to access DESO from the convenience of their smartphones. DESO, short for Decentralized Social, is a new type of social network that mixes cryptocurrency and social media.
 
-Read more about our [vision](https://cloutfeedapp.com/vision)
+DESO has its own native cryptocurrency called $DESO that you can you can use to earn from posting or tip other posts. Grow your audience and interact with the community by following, liking and commenting others.
+
+Join the Decentralized Social(DESO) revolution today!
 
 ## Quick Start
 This project is built with [expo](https://github.com/expo/expo). After cloning the repository on your local device start the project by running:
@@ -14,7 +16,6 @@ npm install
 ```
 expo start
 ```
-More information about roadmap and contribution coming soon.
 
 ## License
 
