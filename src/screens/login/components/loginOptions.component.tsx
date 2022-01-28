@@ -46,7 +46,7 @@ export function LoginOptions(props: Props): JSX.Element {
 
     const buttons: LoginButton[] = [
         {
-            label: 'Existing Users',
+            label: '',
             title: 'Login',
             action: loginWithDeSoIdentity
         },
@@ -56,7 +56,6 @@ export function LoginOptions(props: Props): JSX.Element {
         {
             buttons.map(
                 (button: LoginButton, index: number) => <View key={index} style={{ width: '100%', alignItems: 'center' }}>
-                    <Text style={styles.modeText}>{button.label}</Text>
                     <TouchableOpacity
                         style={styles.loginButton}
                         onPress={button.action}
@@ -74,10 +73,10 @@ export function LoginOptions(props: Props): JSX.Element {
 const styles = StyleSheet.create(
     {
         indicator: {
-            marginTop: 50,
+            marginTop: 30,
         },
         loginButton: {
-            backgroundColor: '#0e86d4',
+            backgroundColor: '#2F4F4F',
             color: 'white',
             width: '90%',
             maxWidth: 330,
@@ -86,8 +85,7 @@ const styles = StyleSheet.create(
             height: 40,
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: 50,
-            marginBottom: 25,
+            marginTop: 25,
             paddingBottom: 2,
             borderWidth: 1,
             borderColor: '#404040'
@@ -98,10 +96,8 @@ const styles = StyleSheet.create(
             fontWeight: '500'
         },
         loginOptionsContainer: {
-            marginTop: 20,
             width: '100%',
             height: '40%',
-            justifyContent: 'space-evenly',
             alignItems: 'center'
         },
         modeText: {

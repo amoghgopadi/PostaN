@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Image, Keyboard, Linking, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Image, Keyboard, Linking, ScrollView, TouchableOpacity } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { constants } from '@globals';
 import { LoginOptions } from './components/loginOptions.component';
@@ -46,6 +46,15 @@ export function LoginScreen({ navigation }: any) {
             <Image style={[styles.logo, { height: isLogoVisible ? 200 : 0 }]} source={require('../../../assets/icon-black.png')}></Image>
             <Text style={styles.title}>PostaN</Text>
             <Text style={styles.subtitle}>Powered by DeSo</Text>
+        </View>    
+        <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.signupButton}
+                onPress={goToSignUp}
+                activeOpacity={1}
+            >
+                <Text style={styles.signupButtonText}>Get Started</Text>
+            </TouchableOpacity>
             {
                 loginWithUsername ?
                     <LoginWithUsername
@@ -55,10 +64,6 @@ export function LoginScreen({ navigation }: any) {
                     <LoginOptions
                         onLoginWithUsername={() => setLoginWithUsername(true)} />
             }
-            <Text style={[styles.modeText, styles.linkText]}>
-                New to DeSo?
-                <Text style={styles.signUpText} onPress={goToSignUp}> Sign up</Text>
-            </Text>
         </View>
     </ScrollView>;
 }
@@ -68,7 +73,6 @@ const styles = StyleSheet.create(
         container: {
             flex: 1,
             backgroundColor: '#121212',
-            justifyContent: 'space-evenly',
             alignItems: 'center',
         },
         contentContainerStyle: {
@@ -90,21 +94,25 @@ const styles = StyleSheet.create(
             height: 150,
             width: 200
         },
-        modeText: {
-            color: '#b0b3b8',
-            marginBottom: 5,
-            fontSize: 12,
-            marginTop: 'auto'
+        signupButton: {
+            backgroundColor: '#a020f0',
+            color: 'white',
+            width: '90%',
+            maxWidth: 330,
+            alignSelf: 'center',
+            marginHorizontal: 16,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 20,
+            paddingBottom: 2,
+            borderWidth: 1,
+            borderColor: '#404040'
         },
-        linkText: {
-            marginBottom: '15%',
-            fontSize: 16,
-            textAlignVertical: 'center'
+        signupButtonText: {
+            color: 'white',
+            fontSize: 20,
+            fontWeight: '500'
         },
-        signUpText: {
-            alignSelf: 'flex-end',
-            fontWeight: 'bold',
-            color: 'white'
-        }
     }
 );
