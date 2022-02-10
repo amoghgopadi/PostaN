@@ -28,5 +28,5 @@ export const constants = {
     localStorage_cloutCastIntroduction: 'cloutCastIntroduction',
     localStorage_bitBadgesIntroduction: 'bitBadgesIntroduction',
     localStorage_draftPost: '_draftPostText',
-    cloutfeed_publicKey: 'BC1YLh5pKXs8NqaUtN8Gzi3rfoAgG2VWio2NER7baDkG8T2x7wRnSwa',
+    postan_publicKey: 'BC1YLhaNDjrR61uZxeEkAMUAkrWMAtD2sfdefqUTJQXqf8U77jmWvfH',
 };

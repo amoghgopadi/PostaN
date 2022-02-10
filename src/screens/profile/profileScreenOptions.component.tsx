@@ -74,7 +74,7 @@ export function ProfileScreenOptionsComponent(
             async response => {
                 const transactionHex = response.TransactionHex;
 
-                if (publicKey === constants.cloutfeed_publicKey) {
+                if (publicKey === constants.postan_publicKey) {
                     globals.followerFeatures = !isFollowed;
                 }
 

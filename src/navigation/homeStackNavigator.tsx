@@ -92,24 +92,7 @@ export default function HomeStackScreen(): JSX.Element {
                                         }
                                     </>
                                 </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={styles.headerIcon}
-                                    onPress={() => navigation.navigate('MessageStack')}
-                                >
-                                    <Feather name="send" size={25} color={themeStyles.fontColorMain.color} />
-                                    {
-                                        messagesCount > 0 &&
-                                        <View style={styles.messagesBadge}>
-                                            <Text style={styles.messagesCount}>
-                                                {
-                                                    messagesCount > 9 ?
-                                                        9 + '+'
-                                                        : messagesCount
-                                                }
-                                            </Text>
-                                        </View>
-                                    }
-                                </TouchableOpacity>
+                                
                             </View>
                         ),
                     })

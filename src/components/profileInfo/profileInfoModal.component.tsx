@@ -294,7 +294,7 @@ export default class ProfileInfoModalComponent extends React.Component<Props, St
             );
             const transactionHex = response.TransactionHex;
 
-            if (publicKey === constants.cloutfeed_publicKey) {
+            if (publicKey === constants.postan_publicKey) {
                 globals.followerFeatures = !this.state.isFollowed;
             }
 

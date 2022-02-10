@@ -63,7 +63,7 @@ export function AppearanceScreen({ navigation }: Props) {
     }
 
     function openProfile() {
-        const publicKey: string = 'BC1YLhaNDjrR61uZxeEkAMUAkrWMAtD2sfdefqUTJQXqf8U77jmWvfH';
+        const publicKey: string = constants.postan_publicKey;
         const username = 'PostaN';
         (navigation).push(
             'UserProfile',
@@ -80,7 +80,7 @@ export function AppearanceScreen({ navigation }: Props) {
             setIsWorking(true);
         }
         try {
-            const publicKey: string = 'BC1YLhaNDjrR61uZxeEkAMUAkrWMAtD2sfdefqUTJQXqf8U77jmWvfH';
+            const publicKey: string = constants.postan_publicKey;
             const response = await api.createFollow(globals.user.publicKey, publicKey, false);
 
             const transactionHex: string = response.TransactionHex;
@@ -104,26 +104,54 @@ export function AppearanceScreen({ navigation }: Props) {
     }
 
     return <View style={[styles.container, themeStyles.containerColorMain]}>
-        <SelectListControl
-            style={[styles.selectList, themeStyles.borderColor]}
-            options={[
-                {
-                    name: 'Automatic',
-                    value: CloutFeedTheme.Automatic
-                },
-                {
-                    name: 'Light',
-                    value: CloutFeedTheme.Light
-                },
-                {
-                    name: 'Dark',
-                    value: CloutFeedTheme.Dark
-                },
-            ]}
-            value={selectedTheme}
-            onValueChange={(theme: string | string[]) => changeTheme(theme as string)}
-        >
-        </SelectListControl>
+        {
+            globals.followerFeatures
+                ? <SelectListControl
+                    style={[styles.selectList, themeStyles.borderColor]}
+                    options={[
+                        {
+                            name: 'Automatic',
+                            value: CloutFeedTheme.Automatic
+                        },
+                        {
+                            name: 'Light',
+                            value: CloutFeedTheme.Light
+                        },
+                        {
+                            name: 'Dark',
+                            value: CloutFeedTheme.Dark
+                        },
+                    ]}
+                    value={selectedTheme}
+                    onValueChange={(theme: string | string[]) => changeTheme(theme as string)}
+                >
+                </SelectListControl>
+                : <View style={styles.lockContainer} >
+                    <View style={styles.iconContainer}>
+                        <Image style={styles.lockImage} source={require('../../assets/lock1.png')} />
+                    </View>
+                    <View style={styles.lockTextContainer}>
+
+                        <Text style={[styles.lockText, themeStyles.fontColorSub]}>
+                            Follow
+                            {' '}<Text onPress={openProfile} style={[themeStyles.linkColor]}>@PostaN</Text>{' '}
+                        </Text>
+                        <Text style={[styles.lockText, themeStyles.fontColorSub]}>
+                            to unlock the dark mode now!
+                        </Text>
+                    </View>
+                    <View style={styles.followBtnContainer}>
+                        {
+                            !globals.readonly && <CloutFeedButton
+                                disabled={isWorking}
+                                styles={styles.followBtn}
+                                title={'Follow'}
+                                onPress={onFollowPress}
+                            />
+                        }
+                    </View>
+                </View>
+        }
     </View>;
 }
 

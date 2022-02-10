@@ -357,19 +357,19 @@ export default function App(): JSX.Element {
 
     const usersYouHODL = p_user.UsersYouHODL;
 
-    const cloutFeedCoin = usersYouHODL?.find(p_user => p_user.CreatorPublicKeyBase58Check === constants.cloutfeed_publicKey);
+    const cloutFeedCoin = usersYouHODL?.find(p_user => p_user.CreatorPublicKeyBase58Check === constants.postan_publicKey);
 
-    if ((cloutFeedCoin && cloutFeedCoin.BalanceNanos > 30000000) || p_user.PublicKeyBase58Check === constants.cloutfeed_publicKey) {
+    if ((cloutFeedCoin && cloutFeedCoin.BalanceNanos > 30000000) || p_user.PublicKeyBase58Check === constants.postan_publicKey) {
       globals.investorFeatures = true;
     }
   }
 
   function setFollowerFeatures(p_user: User) {
-    globals.followerFeatures = globals.user.publicKey === constants.cloutfeed_publicKey;
+    globals.followerFeatures = globals.user.publicKey === constants.postan_publicKey;
 
     const followedByUserPublicKeys = p_user.PublicKeysBase58CheckFollowedByUser;
 
-    if (followedByUserPublicKeys?.length > 0 && followedByUserPublicKeys.indexOf(constants.cloutfeed_publicKey) !== -1) {
+    if (followedByUserPublicKeys?.length > 0 && followedByUserPublicKeys.indexOf(constants.postan_publicKey) !== -1) {
       globals.followerFeatures = true;
     }
   }

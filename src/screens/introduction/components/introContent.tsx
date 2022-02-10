@@ -13,7 +13,7 @@ export const introduction: IntroductionElement[] = [
         title: 'Welcome!',
         imageUri: require('../../../../assets/intro1.png'),
         description: <Text>PostaN is a user-friendly mobile app that allow users to access DeSo, which is a new type of social network that mixes cryptocurrency and social media. {'\n'}{'\n'}
-        DeSo has its own native cryptocurrency called $DESO that you can use to earn from posting or tip other posts. {'\n'}{'\n'}
+        DeSo has its own native cryptocurrency called $DESO that you can earn from posting or use to tip other posts. {'\n'}{'\n'}
         For more info, check
         {' '}<Text
             onPress={() => Linking.openURL('https://docs.deso.org/')}

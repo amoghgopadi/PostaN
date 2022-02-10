@@ -53,7 +53,7 @@ export function ProfileListCardComponent({ profile, isFollowing, handleSearchHis
             async p_response => {
                 const transactionHex = p_response.TransactionHex;
 
-                if (profile.PublicKeyBase58Check === constants.cloutfeed_publicKey) {
+                if (profile.PublicKeyBase58Check === constants.postan_publicKey) {
                     globals.followerFeatures = !following;
                 }
 
