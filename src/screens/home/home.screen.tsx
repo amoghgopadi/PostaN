@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 import { api, notificationsService } from '@services';
 import { themeStyles } from '@styles';
 import { constants, eventManager, globals } from '@globals';
@@ -11,6 +11,7 @@ import * as SecureStore from 'expo-secure-store';
 import { CloutCastFeedComponent } from './components/cloutCastFeed.component';
 import { HotFeedComponent } from './components/hotFeed.component';
 import { StackNavigationProp } from '@react-navigation/stack';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import * as Linking from 'expo-linking';
 
 type RouteParams = {
@@ -244,6 +245,48 @@ export class HomeScreen extends React.Component<Props, State> {
         }
     }
 
+    private swipeTabForward(): void {
+
+        switch(this.state.selectedTab){
+            case HomeScreenTab.Hot:
+                this.onTabClick(HomeScreenTab.Global)
+                break
+            case HomeScreenTab.Global:
+                this.onTabClick(HomeScreenTab.Following)
+                break
+             case HomeScreenTab.Following:
+                this.onTabClick(HomeScreenTab.Recent)  
+                break
+            case HomeScreenTab.Recent:
+                this.onTabClick(HomeScreenTab.Hot)  
+                break
+            default:
+                this.onTabClick(HomeScreenTab.Hot)    
+                break
+        }
+
+    }
+
+    private swipeTabBackward(): void {
+        switch(this.state.selectedTab){
+            case HomeScreenTab.Recent:
+                this.onTabClick(HomeScreenTab.Following)
+                break
+            case HomeScreenTab.Following:
+                this.onTabClick(HomeScreenTab.Global)
+                break
+             case HomeScreenTab.Global:
+                this.onTabClick(HomeScreenTab.Hot)  
+                break
+            case HomeScreenTab.Hot:
+                this.onTabClick(HomeScreenTab.Recent)  
+                break
+            default:
+                this.onTabClick(HomeScreenTab.Recent)    
+                break
+        }
+    }
+
     render(): JSX.Element {
         const renderTab = () => {
             switch (this.state.selectedTab) {
@@ -287,7 +330,12 @@ export class HomeScreen extends React.Component<Props, State> {
         };
 
         return (
-            <View style={[{ flex: 1 }, themeStyles.containerColorMain]}>
+            <GestureRecognizer style={{flex: 1}} 
+            onSwipeLeft={(state) => this.swipeTabForward()}
+            onSwipeRight={(state) =>  this.swipeTabBackward()}
+            >
+            <View
+             style={[{ flex: 1 }, themeStyles.containerColorMain]}>
                 <TabsComponent
                     tabs={this.state.tabs}
                     selectedTab={this.state.selectedTab}
@@ -297,6 +345,8 @@ export class HomeScreen extends React.Component<Props, State> {
                     renderTab()
                 }
             </View>
+            </GestureRecognizer>
+          
         );
     }
 }

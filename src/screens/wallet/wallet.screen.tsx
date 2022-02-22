@@ -11,6 +11,7 @@ import { navigatorGlobals } from '@globals/navigatorGlobals';
 import CloutFeedLoader from '@components/loader/cloutFeedLoader.component';
 import { api, cache } from '@services';
 import { RouteProp } from '@react-navigation/native';
+// https://open.er-api.com/v6/latest/USD
 
 interface Section {
     header: boolean;
@@ -29,6 +30,8 @@ interface State {
     usersYouHODL: CreatorCoinHODLer[];
     sections: Section[];
     refreshing: boolean;
+    usdToRupeesValue: number
+    
 }
 
 type RouteParams = {
@@ -69,10 +72,13 @@ export class WalletScreen extends React.Component<Props, State> {
             selectedTab: WalletTab.Purchased,
             usersYouHODL: [],
             sections: [],
-            refreshing: false
+            refreshing: false,
+            usdToRupeesValue: 74
         };
 
-        this.loadData();
+
+        this.calculateConversionRates();
+       
         this.loadData = this.loadData.bind(this);
         this.onTabClick = this.onTabClick.bind(this);
 
@@ -100,7 +106,23 @@ export class WalletScreen extends React.Component<Props, State> {
 
     shouldComponentUpdate(_nextProps: Props, nextSate: State): boolean {
         return nextSate.isLoading !== this.state.isLoading ||
-            nextSate.selectedTab !== this.state.selectedTab;
+            nextSate
+            .selectedTab !== this.state.selectedTab;
+    }
+
+    private calculateConversionRates() {
+         fetch('https://open.er-api.com/v6/latest/USD')
+        .then((response) => response.json())
+        .then((json) => {
+            console.log("Json, + " , json.rates.INR)
+            this.setState({
+                usdToRupeesValue: json.rates.INR
+            })
+            this.loadData();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
 
     private loadData() {
@@ -121,8 +143,8 @@ export class WalletScreen extends React.Component<Props, State> {
                 const user: User = responses[1].UserList[0];
                 const deSoNanos = 1000000000.0;
                 const balanceDeSo = (user.BalanceNanos / deSoNanos).toFixed(5);
-                const deSoPriceUsd = calculateAndFormatDeSoInUsd(deSoNanos);
-                const balanceUsd = calculateAndFormatDeSoInUsd(user.BalanceNanos);
+                const deSoPriceUsd = calculateAndFormatDeSoInUsd(deSoNanos, this.state.usdToRupeesValue);
+                const balanceUsd = calculateAndFormatDeSoInUsd(user.BalanceNanos, this.state.usdToRupeesValue);
 
                 const usersYouHODL = user.UsersYouHODL;
 
@@ -137,7 +159,7 @@ export class WalletScreen extends React.Component<Props, State> {
                                 userYouHODL.BalanceNanos,
                                 userYouHODL.ProfileEntryResponse.CoinEntry
                             );
-                            const amountUsd = calculateDeSoInUSD(amountYouGetIfYouSold);
+                            const amountUsd = calculateDeSoInUSD(amountYouGetIfYouSold, this.state.usdToRupeesValue);
 
                             const coinsAmount = userYouHODL.BalanceNanos / 1000000000;
                             userYouHODL.ProfileEntryResponse.CoinPriceUSD = amountUsd / coinsAmount;
@@ -273,7 +295,7 @@ export class WalletScreen extends React.Component<Props, State> {
                         </View>
 
                         <View style={[styles.deSoPriceContainer]}>
-                            <Text style={[styles.deSoPriceText, themeStyles.fontColorMain]}>1 $DESO</Text>
+                            <Text style={[styles.deSoPriceText, themeStyles.fontColorMain]}>One $DESO</Text>
                             <Text style={[styles.deSoPriceText, themeStyles.fontColorMain]}>~₹{this.state.deSoPriceUsd}</Text>
                         </View>
 
