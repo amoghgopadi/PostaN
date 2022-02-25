@@ -73,7 +73,7 @@ export class WalletScreen extends React.Component<Props, State> {
             usersYouHODL: [],
             sections: [],
             refreshing: false,
-            usdToRupeesValue: 74
+            usdToRupeesValue: 74.5
         };
 
 
@@ -122,6 +122,7 @@ export class WalletScreen extends React.Component<Props, State> {
         })
         .catch((error) => {
           console.error(error);
+            this.loadData()
         });
     }
 

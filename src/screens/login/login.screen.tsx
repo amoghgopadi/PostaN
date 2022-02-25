@@ -4,6 +4,9 @@ import * as SecureStore from 'expo-secure-store';
 import { constants } from '@globals';
 import { LoginOptions } from './components/loginOptions.component';
 import { LoginWithUsername } from './components/loginWithUsername.component';
+import { backgroundColor } from '../../common/values/colors';
+import BorderButton from '../../common/buttons/BorderButton';
+import SolidButton from '../../common/buttons/SolidButton';
 
 export function LoginScreen({ navigation }: any) {
     const [isLogoVisible, setLogoVisible] = useState(true);
@@ -42,20 +45,14 @@ export function LoginScreen({ navigation }: any) {
     return <ScrollView
         bounces={false}
         contentContainerStyle={styles.contentContainerStyle}>
-        <View style={styles.container}>
-            <Image style={[styles.logo, { height: isLogoVisible ? 200 : 0 }]} source={require('../../../assets/icon-black.png')}></Image>
+        <View style={[styles.container,{paddingTop: 48,}]}>
+            <Image style={[styles.logo, { height: isLogoVisible ? 200 : 0 }]} source={require('../../../assets/icon-white.png')}></Image>
             <Text style={styles.title}>PostaN</Text>
             <Text style={styles.subtitle}>Powered by DeSo</Text>
         </View>    
-        <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.signupButton}
-                onPress={goToSignUp}
-                activeOpacity={1}
-            >
-                <Text style={styles.signupButtonText}>Get Started</Text>
-            </TouchableOpacity>
-            {
+        <View style={[styles.container, {justifyContent: 'flex-end', marginBottom: 24}]}>
+
+                {
                 loginWithUsername ?
                     <LoginWithUsername
                         onBack={() => setLoginWithUsername(false)}
@@ -63,7 +60,15 @@ export function LoginScreen({ navigation }: any) {
                     :
                     <LoginOptions
                         onLoginWithUsername={() => setLoginWithUsername(true)} />
-            }
+                 }
+
+            <BorderButton 
+                buttonName={'Get started'}
+                onPress={goToSignUp}
+                style={styles.signupButton}
+            />
+          
+            
         </View>
     </ScrollView>;
 }
@@ -72,12 +77,13 @@ const styles = StyleSheet.create(
     {
         container: {
             flex: 1,
-            backgroundColor: '#121212',
+            backgroundColor: backgroundColor.authFlowScreensBackground,
             alignItems: 'center',
+            justifyContent: 'center'
         },
         contentContainerStyle: {
             flexGrow: 1,
-            backgroundColor: '#121212',
+            backgroundColor: backgroundColor.authFlowScreensBackground,
         },
         title: {
             fontSize: 36,
@@ -95,19 +101,7 @@ const styles = StyleSheet.create(
             width: 200
         },
         signupButton: {
-            backgroundColor: '#a020f0',
-            color: 'white',
-            width: '90%',
-            maxWidth: 330,
-            alignSelf: 'center',
-            marginHorizontal: 16,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 20,
-            paddingBottom: 2,
-            borderWidth: 1,
-            borderColor: '#404040'
+            marginTop: 8,
         },
         signupButtonText: {
             color: 'white',

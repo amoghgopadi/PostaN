@@ -4,6 +4,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { authenticateWithDeSoIdentity } from '@services/authorization/deSoAuthentication';
 import { LoginButton } from '@types';
+import SolidButton from '../../../common/buttons/SolidButton';
 
 interface Props {
     onLoginWithUsername: () => void;
@@ -55,14 +56,8 @@ export function LoginOptions(props: Props): JSX.Element {
     return <View style={styles.loginOptionsContainer}>
         {
             buttons.map(
-                (button: LoginButton, index: number) => <View key={index} style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchableOpacity
-                        style={styles.loginButton}
-                        onPress={button.action}
-                        activeOpacity={1}
-                    >
-                        <Text style={styles.loginButtonText}>{button.title}</Text>
-                    </TouchableOpacity>
+                (button: LoginButton, index: number) => <View key={index} style={{ width: '100%', alignItems: 'center', marginBottom: 8 }}>
+                    <SolidButton onPress={button.action} buttonName={button.title}/>
                 </View>
             )
         }
@@ -97,7 +92,6 @@ const styles = StyleSheet.create(
         },
         loginOptionsContainer: {
             width: '100%',
-            height: '40%',
             alignItems: 'center'
         },
         modeText: {

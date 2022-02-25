@@ -22,7 +22,9 @@ export function LoginNavigator({ navigation }: any) {
             }
         >
             <Stack.Screen
-                name="Login" component={LoginScreen} />
+                name="Login" component={LoginScreen} options={{
+                    headerShown: false
+                  }} />
             <Stack.Screen
                 options={
                     {
