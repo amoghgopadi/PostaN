@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { settingsGlobals } from '@globals';
+import { backgroundColor } from '../src/common/values/colors';
 
 export let themeStyles = StyleSheet.create(
     {
         fontColorMain: { color: settingsGlobals.darkMode ? '#ebebeb' : 'black' },
         switchColor: { color: settingsGlobals.darkMode ? 'rgba(128, 128, 128, 1)' : 'rgba(128, 128, 128, 0.4)' },
         fontColorSub: { color: settingsGlobals.darkMode ? '#b0b3b8' : '#828282' },
-        containerColorMain: { backgroundColor: settingsGlobals.darkMode ? '#000000' : 'white' },
+        containerColorMain: { backgroundColor: settingsGlobals.darkMode ? '#000000' : 'white' }, //.commonScreenBackground },
         containerColorSub: { backgroundColor: settingsGlobals.darkMode ? '#121212' : '#f7f7f7' },
         chipColor: { backgroundColor: settingsGlobals.darkMode ? '#262525' : '#f5f5f5' },
         coinPriceContainer: { backgroundColor: settingsGlobals.darkMode ? '#171717' : '#ebebeb' },

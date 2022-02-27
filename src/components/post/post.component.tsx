@@ -14,6 +14,9 @@ import CloutFeedVideoComponent from '@components/post/cloutFeedVideo.component';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ProfileInfoImageComponent from '@components/profileInfo/profileInfoImage.component';
 import ProfileInfoUsernameComponent from '@components/profileInfo/profileInfoUsername.component';
+import { backgroundColor } from '../../common/values/colors';
+import { paddings, radius } from '../../common/values/dimens';
+import LightText from '../../common/texts/LightText';
 
 interface Props {
     navigation: StackNavigationProp<ParamListBase>;
@@ -261,11 +264,13 @@ export class PostComponent extends React.Component<Props, State> {
                 {
                     this.props.isParentPost ? [
                         styles.parentPostContainer,
-                        styles.containerVerticalPaddings,
-                        themeStyles.containerColorMain,
-                        themeStyles.borderColor] : [
-                        themeStyles.containerColorMain,
-                        themeStyles.borderColor
+                        styles.containerVerticalPaddings] : [
+                        {
+                        marginBottom: 8,
+                        backgroundColor: backgroundColor.cardBackground,
+                        marginHorizontal: paddings.screenPadding,
+                        borderRadius: radius.postCardRadius
+                        }
                     ]
                 }>
                 {
@@ -284,8 +289,10 @@ export class PostComponent extends React.Component<Props, State> {
                         style={[
                             styles.contentContainer,
                             !this.props.isParentPost ? styles.containerVerticalPaddings : {},
-                            { borderBottomWidth: this.props.hideBottomBorder ? 0 : 1 },
-                            themeStyles.borderColor
+                            { 
+                                borderBottomLeftRadius: radius.postCardRadius,
+                                borderBottomRightRadius: radius.postCardRadius
+                             },
                         ]}>
                         <TouchableOpacity onPress={() => this.goToPost()} onLongPress={() => this.goToStats()} activeOpacity={1}>
                             <View style={styles.headerContainer} >
@@ -306,7 +313,7 @@ export class PostComponent extends React.Component<Props, State> {
 
                                     <TouchableOpacity style={styles.actionButton} activeOpacity={1}>
                                         <Ionicons name="ios-time-outline" size={14} color="#a1a1a1" />
-                                        <Text style={styles.actionText}>{this.state.durationUntilNow}</Text>
+                                        <LightText isSmall value={this.state.durationUntilNow} style={{marginLeft: 4}} />
                                     </TouchableOpacity>
                                 </View>
 
@@ -421,17 +428,18 @@ export class PostComponent extends React.Component<Props, State> {
 const styles = StyleSheet.create(
     {
         containerVerticalPaddings: {
-            paddingTop: 24,
-            paddingBottom: 10
+            paddingTop: paddings.cardPadding,
+            paddingBottom: paddings.cardPadding
         },
         parentPostContainer: {
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            backgroundColor: backgroundColor.cardBackground
         },
         parentPostSubContainer: {
             flex: 1,
-            paddingLeft: 10
+            paddingLeft: paddings.cardPadding
         },
         isParentPostContainer: {
             flex: 11
@@ -450,8 +458,8 @@ const styles = StyleSheet.create(
         headerContainer: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginBottom: 10,
-            paddingHorizontal: 10
+            marginBottom: paddings.cardPadding,
+            paddingHorizontal: paddings.cardPadding
         },
         headerRightContainer: {
             flexDirection: 'row',

@@ -79,7 +79,8 @@ const styles = StyleSheet.create(
             flex: 1,
             backgroundColor: backgroundColor.authFlowScreensBackground,
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            paddingHorizontal: 24
         },
         contentContainerStyle: {
             flexGrow: 1,

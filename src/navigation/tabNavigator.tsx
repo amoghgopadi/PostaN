@@ -3,7 +3,7 @@ import { EmitterSubscription, Image, Keyboard, Platform, StyleSheet, View, SafeA
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, EvilIcons } from '@expo/vector-icons';
 import { eventManager, globals, hapticsManager, navigatorGlobals, settingsGlobals } from '@globals';
 import { themeStyles } from '@styles';
 import { EventType, FocusSearchHeaderEvent } from '@types';
@@ -15,6 +15,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import SearchStackScreen from './searchStackNavigator';
 import { UserContext } from '@globals/userContext';
+import { backgroundColor, iconColors } from '../common/values/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,11 +33,11 @@ const TabElement = ({ tab, onPress, selectedTab }: any) => {
 
     const { profilePic } = useContext(UserContext);
 
-    let iconColor = themeStyles.fontColorMain.color;
+    let iconColor = iconColors.notSelectedIcon;
     let icon;
 
     if (selectedTab === tab.name) {
-        iconColor = '#4287f5';
+        iconColor = iconColors.selectedIcon;
     }
 
     if (tab.name === 'HomeStack') {
@@ -44,16 +45,11 @@ const TabElement = ({ tab, onPress, selectedTab }: any) => {
     } else if (tab.name === 'WalletStack') {
         icon = <Ionicons name="wallet-outline" size={28} color={iconColor} />;
     } else if (tab.name === 'CreatePostStack') {
-        icon = <Ionicons name="add-circle-sharp" size={50} color={themeStyles.fontColorMain.color} />;
+        icon = <Ionicons name="add-circle-sharp" size={50} color={iconColor} />;
     } else if (tab.name === 'SearchStack') {
-        icon = <Ionicons name="ios-search" size={28} color={iconColor} />;
+        icon = <Ionicons name="search-outline" size={28} color={iconColor} />;
     } else if (tab.name === 'ProfileStack') {
-        icon = <Image
-            style={[
-                styles.profileImage,
-                { borderWidth: selectedTab === tab.name ? 2 : 0, borderColor: iconColor }
-            ]}
-            source={{ uri: profilePic }} />;
+        icon = <EvilIcons name="user" size={36} color={iconColor} />;
     }
 
     function openProfileManager() {
@@ -149,7 +145,20 @@ const TabBar = ({ state }: any) => {
                     ))
                 }
                 <View>
-                    <TouchableOpacity onPress={() => navigation.push('TabNavigator', {
+                    <TouchableOpacity
+                    style = {{
+                        marginBottom: 24,
+                        borderWidth: 10, 
+                        borderRadius: 60,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'white',
+                        paddingBottom: 16,
+                        borderColor: 'white',
+                        paddingLeft: 4
+                        
+                    }}
+                    onPress={() => navigation.push('TabNavigator', {
                         screen: 'HomeStack',
                         params: {
                             screen: 'CreatePost',
@@ -159,7 +168,9 @@ const TabBar = ({ state }: any) => {
                             }
                         }
                     })}>
-                        <Ionicons name="add-circle-sharp" size={50} color={themeStyles.fontColorMain.color} />
+                        <Ionicons
+                         name="add-circle" size={64} color={iconColors.addIcon} 
+                         />
                     </TouchableOpacity>
                 </View>
                 {
@@ -181,7 +192,7 @@ const TabBar = ({ state }: any) => {
 export function TabNavigator() {
     return (
         <Tab.Navigator
-            sceneContainerStyle={themeStyles.containerColorMain}
+            sceneContainerStyle={{backgroundColor: backgroundColor.commonScreenBackground}}
             tabBar={props => <TabBar {...props} />}>
             <Tab.Screen name="HomeStack" component={HomeStackScreen} />
             <Tab.Screen name="SearchStack" component={SearchStackScreen} />
@@ -198,12 +209,11 @@ const styles = StyleSheet.create(
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-around',
-            borderTopWidth: 1
         },
         profileImage: {
             width: 30,
             height: 30,
-            borderRadius: 30
+            borderRadius: 30,
         }
     }
 );

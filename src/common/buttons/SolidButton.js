@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
 import { backgroundColor, borderColors, textColors } from '../values/colors'
-import { heighAndWidth, radius, paddings, fontSizes } from '../values/dimens'
+import { heighAndWidth, radius, paddings, fontSizes, fontFamilies } from '../values/dimens'
 
 const SolidButton = ({
     buttonName, 
@@ -25,7 +25,8 @@ const SolidButton = ({
         >
             <Text style={[{
                  color: textColors.solidButtonText,
-                 fontSize: fontSizes.longButtontFontSize
+                 fontSize: fontSizes.longButtontFontSize,
+                 fontFamily: fontFamilies.bold
             }, customTextStyle]}>{buttonName}</Text>
         </TouchableOpacity>
     )

@@ -13,6 +13,8 @@ import { HotFeedComponent } from './components/hotFeed.component';
 import { StackNavigationProp } from '@react-navigation/stack';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import * as Linking from 'expo-linking';
+import { backgroundColor } from '../../common/values/colors';
+import { radius } from '../../common/values/dimens';
 
 type RouteParams = {
     Home: {
@@ -330,12 +332,14 @@ export class HomeScreen extends React.Component<Props, State> {
         };
 
         return (
-            <GestureRecognizer style={{flex: 1}} 
+            <GestureRecognizer style={{flex: 1, backgroundColor:backgroundColor.commonScreenBackground}} 
             onSwipeLeft={(state) => this.swipeTabForward()}
             onSwipeRight={(state) =>  this.swipeTabBackward()}
             >
             <View
-             style={[{ flex: 1 }, themeStyles.containerColorMain]}>
+             style={[{ flex: 1, marginTop: 8, 
+                borderRadius: radius.commonContainerRadius,
+              }, {backgroundColor: backgroundColor.commonScreenBackground}]}>
                 <TabsComponent
                     tabs={this.state.tabs}
                     selectedTab={this.state.selectedTab}

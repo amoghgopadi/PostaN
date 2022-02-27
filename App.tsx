@@ -1,6 +1,8 @@
 import { NavigationContainer, NavigationProp, ParamListBase, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState, useRef } from 'react';
+import AppLoading from 'expo-app-loading';
+import { useFonts, Nunito_600SemiBold, Nunito_200ExtraLight, Nunito_400Regular, Nunito_800ExtraBold } from '@expo-google-fonts/nunito';
 import * as SecureStore from 'expo-secure-store';
 import { EventType, ToggleProfileManagerEvent, User, ToggleActionSheetEvent, ToggleBidFormEvent, BidEdition, ToggleProfileInfoModalEvent, Profile } from './src/types';
 import { settingsGlobals } from './src/globals/settingsGlobals';
@@ -80,6 +82,8 @@ export default function App(): JSX.Element {
     appState.current = nextAppState;
   }
 
+ 
+
   useEffect(
     () => {
       handleScreenOrientation();
@@ -139,6 +143,17 @@ export default function App(): JSX.Element {
     },
     []
   );
+
+  let [fontsLoaded] = useFonts({
+    Nunito_600SemiBold,
+    Nunito_200ExtraLight,
+    Nunito_400Regular,
+    Nunito_800ExtraBold
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   async function handleScreenOrientation() {
     const response = await Device.getDeviceTypeAsync();

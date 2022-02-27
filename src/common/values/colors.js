@@ -1,20 +1,34 @@
+const themeColor =  '#58C092' // '#8EEBDA'//  '#0BDA51'//
+const greyColor = '#9E9E9E'
+
 export const borderColors = {
-    borderButton: '#8EEBDA',
+    borderButton: themeColor,
     radioButton: '#C6F5EE'
 }
 
 export const backgroundColor = {
     commonScreenBackground: '#F6FAF8',
     authFlowScreensBackground: '#FFF',
-    radioButtonCheckedBackground: '#8EEBDA',
+    radioButtonCheckedBackground: themeColor,
     radioButtonUnCheckedBackground: '#FFF',
-    buttonBackground: '#8EEBDA'
+    buttonBackground: themeColor,
+    containerBackground: 'white',
+    cardBackground: '#FFF'
 }
 
 export const textColors = {
     commonScreenText: '#000',
     solidButtonText: '#FFF',
-    highlightedText: '#8EEBDA',
-    borderButtonText: '#8EEBDA',
-    solidButtonText: '#FFF'
+    highlightedText: themeColor,
+    borderButtonText: themeColor,
+    solidButtonText: '#FFF',
+    highlightedTabColor: themeColor,
+    greyText: greyColor
+}
+
+export const iconColors = {
+    addIcon: themeColor,
+    selectedIcon: themeColor,
+    notSelectedIcon: greyColor,
+    clickableIcons: themeColor
 }

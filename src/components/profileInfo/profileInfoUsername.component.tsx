@@ -7,6 +7,7 @@ import { eventManager, hapticsManager } from '@globals/injector';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ParamListBase } from '@react-navigation/native';
 import { calculateDeSoInUSD } from '@services/deSoCalculator';
+import TitleText from '../../common/texts/TitleText';
 
 interface Props {
     profile: Profile;
@@ -74,17 +75,14 @@ export default class ProfileInfoUsernameComponent extends React.Component<Props>
             onLongPress={this.toggleProfileCardModal}
             activeOpacity={1}
             style={styles.container}>
-            <Text style={
+            <TitleText value={this.props.profile?.Username} style={
                 [
                     styles.username,
-                    this.props.isDarkMode ?
-                        styles.darkText
-                        : themeStyles.fontColorMain,
-                    this.props.isLarge && styles.chatHeaderUsername,
+                    
                 ]
-            }>
-                {this.props.profile?.Username}
-            </Text>
+            }/>
+               
+
             {
                 this.props.profile?.IsVerified &&
                 <MaterialIcons name="verified" size={16} style={styles.verified} color="#007ef5" />
@@ -104,7 +102,6 @@ const styles = StyleSheet.create(
             alignItems: 'center',
         },
         username: {
-            fontWeight: '700',
             maxWidth: Dimensions.get('window').width / 2
         },
         verified: {

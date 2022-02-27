@@ -5,6 +5,7 @@ import { EventType, Profile } from '@types';
 import { eventManager, hapticsManager } from '@globals/injector';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ParamListBase } from '@react-navigation/native';
+import { heighAndWidth, radius } from '../../common/values/dimens';
 
 interface Props {
     imageSize?: number;
@@ -107,7 +108,8 @@ export default class ProfileInfoImageComponent extends React.Component<Props, St
                         styles.image,
                         !!this.props.imageSize && {
                             width: this.props.imageSize,
-                            height: this.props.imageSize
+                            height: this.props.imageSize,
+                            borderRadius: radius.profileImageRadius
                         }
                     ]
                 }
@@ -120,8 +122,8 @@ export default class ProfileInfoImageComponent extends React.Component<Props, St
 const styles = StyleSheet.create(
     {
         image: {
-            width: 40,
-            height: 40,
+            width: heighAndWidth.profileImageDimens,
+            height: heighAndWidth.profileImageDimens,
             borderRadius: 6,
             marginRight: 12
         },

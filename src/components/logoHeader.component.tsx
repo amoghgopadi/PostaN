@@ -4,7 +4,7 @@ import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 
 export function LogoHeaderComponent(): JSX.Element {
-    return <View style={styles.headerContainer}>
+    return <View style={[styles.headerContainer, {marginLeft: 8}]}>
         {
             settingsGlobals.darkMode ?
                 <Image

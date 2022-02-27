@@ -229,7 +229,7 @@ export class PostListComponent extends React.Component<Props, State> {
         />;
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1}}>
                 <FlatList
                     ref={this._flatListRef}
                     onMomentumScrollEnd={

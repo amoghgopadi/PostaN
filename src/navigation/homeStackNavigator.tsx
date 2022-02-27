@@ -13,6 +13,8 @@ import { EventType } from '@types';
 import { SharedStackScreens } from './sharedStackScreens';
 import { NotificationsHeaderComponent } from '@screens/notifications/components/notificationsHeader.component';
 import { NotificationsScreen } from '@screens/notifications/notifications.screen';
+import { backgroundColor, iconColors } from '../common/values/colors';
+import { radius } from '../common/values/dimens';
 
 const HomeStack = createStackNavigator();
 
@@ -65,12 +67,14 @@ export default function HomeStackScreen(): JSX.Element {
                     color: themeStyles.fontColorMain.color
                 },
                 headerStyle: {
-                    backgroundColor: themeStyles.containerColorMain.backgroundColor,
+                    backgroundColor:'white',// backgroundColor.commonScreenBackground,
                     shadowOpacity: 0,
                     elevation: 0,
+                    borderBottomLeftRadius: radius.headerRadius,
+                    borderBottomRightRadius: radius.headerRadius
                 },
                 headerLeft: () => <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={1}>
-                    <Ionicons name="chevron-back" size={32} color="#007ef5" />
+                    <Ionicons name="chevron-back-circle-outline" size={32} color={iconColors.clickableIcons} />
                 </TouchableOpacity>
             })}>
             <HomeStack.Screen
@@ -161,7 +165,7 @@ const styles = StyleSheet.create(
             borderRadius: 9
         },
         headerIcon: {
-            marginRight: 8,
+            marginRight: 16,
             paddingHorizontal: 4
         }
     }

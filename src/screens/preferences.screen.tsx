@@ -11,6 +11,7 @@ import CloutFeedLoader from '@components/loader/cloutFeedLoader.component';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ParamListBase } from '@react-navigation/routers';
+import { backgroundColor } from '../common/values/colors';
 
 interface Props {
     navigation: StackNavigationProp<ParamListBase>;
@@ -153,7 +154,7 @@ export class PreferencesScreen extends React.Component<Props, State>{
         }
 
         return <ScrollView style={[themeStyles.containerColorMain, styles.container]}>
-            {
+           {
                 globals.readonly ? undefined :
                     <View style={[styles.cloutCastFeedSettingsContainer, themeStyles.borderColor]}>
                         <Text style={[styles.cloutCastFeedSettingsText, themeStyles.fontColorMain]}>Hide Coin Price</Text>
@@ -215,7 +216,7 @@ export class PreferencesScreen extends React.Component<Props, State>{
                 ]}
                 value={this.state.feed}
                 onValueChange={(value: string | string[]) => this.onFeedTypeChange(value as FeedType)}
-            />
+            /> 
         </ScrollView>;
     }
 }
@@ -224,6 +225,7 @@ const styles = StyleSheet.create(
     {
         container: {
             flex: 1,
+            // backgroundColor:  backgroundColor.commonScreenBackground
         },
         cloutCastFeedSettingsContainer: {
             flexDirection: 'row',
