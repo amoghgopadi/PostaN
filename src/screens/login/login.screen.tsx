@@ -52,6 +52,12 @@ export function LoginScreen({ navigation }: any) {
         </View>    
         <View style={[styles.container, {justifyContent: 'flex-end', marginBottom: 24}]}>
 
+             <SolidButton 
+                buttonName={'Get started'}
+                onPress={goToSignUp}
+                style={styles.signupButton}
+             />
+          
                 {
                 loginWithUsername ?
                     <LoginWithUsername
@@ -62,12 +68,6 @@ export function LoginScreen({ navigation }: any) {
                         onLoginWithUsername={() => setLoginWithUsername(true)} />
                  }
 
-            <BorderButton 
-                buttonName={'Get started'}
-                onPress={goToSignUp}
-                style={styles.signupButton}
-            />
-          
             
         </View>
     </ScrollView>;
@@ -102,7 +102,7 @@ const styles = StyleSheet.create(
             width: 200
         },
         signupButton: {
-            marginTop: 8,
+            marginBottom: 8,
         },
         signupButtonText: {
             color: 'white',

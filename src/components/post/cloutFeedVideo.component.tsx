@@ -3,6 +3,7 @@ import { StyleSheet, ActivityIndicator, View, TouchableWithoutFeedback } from 'r
 import { themeStyles } from '@styles/globalColors';
 import WebView from 'react-native-webview';
 import { parseVideoLink } from '@services/videoLinkParser';
+import { radius, paddings } from '../../common/values/dimens';
 
 interface Props {
     embeddedVideoLink: string;
@@ -39,7 +40,8 @@ export default class CloutFeedVideoComponent extends React.Component<Props, Stat
             color={themeStyles.fontColorMain.color} />;
 
         return (
-            <View style={[styles.videoContainer, themeStyles.containerColorMain]}>
+            <View style={[styles.videoContainer, themeStyles.containerColorMain, {
+                paddingHorizontal: paddings.cardPadding}]}>
 
                 <TouchableWithoutFeedback style={[styles.videoContainer, themeStyles.containerColorMain]}
                     onPress={() => {
@@ -49,6 +51,8 @@ export default class CloutFeedVideoComponent extends React.Component<Props, Stat
                         renderLoading={renderLoadingView}
                         startInLoadingState={true}
                         scalesPageToFit
+                        containerStyle={{ overflow: "hidden",
+                        borderRadius: radius.imageRadius}}
                         style={[styles.videoContainer, themeStyles.containerColorMain]}
                         source={{ uri: parsedVideoLink.videoLink }}
                         scrollEnabled={true}
@@ -80,7 +84,8 @@ const styles = StyleSheet.create(
     {
         videoContainer: {
             height: 400,
-            opacity: 0.99
+            opacity: 0.99,
+            borderRadius: radius.imageRadius
         },
         activityIndicator: {
             position: 'absolute',

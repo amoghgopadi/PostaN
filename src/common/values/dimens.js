@@ -12,7 +12,8 @@ export const radius = {
     tabSwitcherRadius: 24,
     commonContainerRadius: 24,
     postCardRadius: 16,
-    profileImageRadius: 20
+    profileImageRadius: 20,
+    imageRadius: 16
 }
 
 export const paddings = {

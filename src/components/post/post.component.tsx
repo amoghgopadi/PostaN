@@ -17,6 +17,7 @@ import ProfileInfoUsernameComponent from '@components/profileInfo/profileInfoUse
 import { backgroundColor } from '../../common/values/colors';
 import { paddings, radius } from '../../common/values/dimens';
 import LightText from '../../common/texts/LightText';
+import RegularText from '../../common/texts/RegularText';
 
 interface Props {
     navigation: StackNavigationProp<ParamListBase>;
@@ -326,9 +327,9 @@ export class PostComponent extends React.Component<Props, State> {
                                     {
                                         !this.state.isCoinPriceHidden &&
                                         <View style={[styles.coinPriceContainer, themeStyles.chipColor]}>
-                                            <Text style={[styles.coinPriceText, themeStyles.fontColorMain]}>
-                                            ₹{this.state.coinPrice}
-                                            </Text>
+                                            <RegularText 
+                                              value={ '₹' + this.state.coinPrice}
+                                            />
                                         </View>
                                     }
 

@@ -5,6 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import ImageModal from './imageModal.component';
 import { themeStyles } from '@styles/globalColors';
+import { radius, paddings } from '../common/values/dimens';
 
 interface Props {
     imageUrls: string[];
@@ -81,7 +82,7 @@ export function ImageGalleryComponent({ imageUrls, goToStats, removable, onRemov
                         (p_imageUrl: string, index: number) =>
                             p_imageUrl ?
                                 <TouchableOpacity
-                                    style={styles.image}
+                                    style={[styles.image, {}]}
                                     onPress={() => setModalVisible(true)}
                                     onLongPress={goToStats}
                                     activeOpacity={1}
@@ -126,7 +127,8 @@ export function ImageGalleryComponent({ imageUrls, goToStats, removable, onRemov
 const styles = StyleSheet.create(
     {
         container: {
-            marginTop: 14
+            marginTop: 14,
+            paddingHorizontal: paddings.cardPadding
         },
         imagesContainer: {
             height: 400,
@@ -134,7 +136,8 @@ const styles = StyleSheet.create(
         },
         image: {
             height: 400,
-            resizeMode: 'contain'
+            resizeMode: 'contain',
+            borderRadius: radius.imageRadius,
         },
         dotsContainer: {
             alignSelf: 'center',

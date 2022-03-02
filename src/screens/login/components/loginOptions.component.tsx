@@ -4,7 +4,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { authenticateWithDeSoIdentity } from '@services/authorization/deSoAuthentication';
 import { LoginButton } from '@types';
-import SolidButton from '../../../common/buttons/SolidButton';
+import BorderButton from '../../../common/buttons/BorderButton';
 
 interface Props {
     onLoginWithUsername: () => void;
@@ -57,7 +57,7 @@ export function LoginOptions(props: Props): JSX.Element {
         {
             buttons.map(
                 (button: LoginButton, index: number) => <View key={index} style={{ width: '100%', alignItems: 'center', marginBottom: 8 }}>
-                    <SolidButton onPress={button.action} buttonName={button.title}/>
+                    <BorderButton onPress={button.action} buttonName={button.title}/>
                 </View>
             )
         }

@@ -4,6 +4,9 @@ import Autolink from 'react-native-autolink';
 import { themeStyles } from '@styles/globalColors';
 import { ParamListBase } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import RegularText from '../common/texts/RegularText';
+import { textColors } from '../common/values/colors';
+import { fontSizes, fontFamilies } from '../common/values/dimens';
 
 interface Props {
     navigation: StackNavigationProp<ParamListBase>;
@@ -183,7 +186,11 @@ export class TextWithLinks extends React.Component<Props, State>{
 
         return <>
             <Autolink
-                style={style}
+                style={[style, {
+                    color:  textColors.commonScreenText,
+                     fontSize: fontSizes.tabFontSize,
+                     fontFamily: fontFamilies.regular
+                }]}
                 text={this.props.text}
                 onTextLayout={event => this.onTextLayout(event)}
                 mention="twitter"
@@ -191,22 +198,22 @@ export class TextWithLinks extends React.Component<Props, State>{
                 matchers={[dollarMatches]}
                 numberOfLines={this.state.numberOfLines}
                 renderLink={(text: string, match: any, index: number) => (
-                    <Text
-                        style={[styles.link, themeStyles.linkColor]}
-                        key={index}
+                    <RegularText 
+                        style={[themeStyles.linkColor]}
                         onPress={() => this.onLinkPressed(text, match)}
-                    >
-                        {this.renderLink(text)}
-
-                    </Text>
+                        key={index}
+                        value={this.renderLink(text)}
+                    />
                 )}
             />
             {
                 this.state.showMoreButton &&
-                <Text
+                <RegularText 
                     onPress={() => this.toggleText()}
                     style={[themeStyles.linkColor, styles.readMore, this.props.isProfile && styles.isProfile]}
-                >{this.state.textHidden ? 'Read More' : 'Read Less'}</Text>}
+                    value={this.state.textHidden ? 'Read More' : 'Read Less'}
+                />
+            }
         </>;
     }
 }

@@ -10,6 +10,7 @@ import { signing } from '@services/authorization/signing';
 import { themeStyles } from '@styles/globalColors';
 import { eventManager, hapticsManager } from '@globals/injector';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { paddings } from '../../common/values/dimens';
 
 interface LikeIcon {
     name: 'ios-heart-sharp' | 'ios-heart-outline';
@@ -266,6 +267,11 @@ export class PostActionsRow extends React.Component<Props, State> {
                 <Text style={styles.actionText}>{this.props.post.LikeCount}</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.actionButton} activeOpacity={0.5} onPress={() => this.onSendDiamonds()} onLongPress={() => this.goToStats('Diamonds')}>
+                        <FontAwesome name='diamond' size={18} color={this.state.diamondLevel != null && this.state.diamondLevel > 0 ? themeStyles.diamondColor.color : '#a1a1a1'} />
+                        <Text style={styles.actionText}>{this.props.post.DiamondCount}</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.actionButton} activeOpacity={0.5} onPress={() => this.goToReply()}>
                 <Fontisto name='comment' size={19} color={'#a1a1a1'} />
                 <Text style={styles.actionText}>{this.props.post.CommentCount}</Text>
@@ -276,14 +282,6 @@ export class PostActionsRow extends React.Component<Props, State> {
                 <Text style={styles.actionText}>{this.props.post.RepostCount + this.props.post.QuoteRepostCount}</Text>
             </TouchableOpacity>
 
-            {
-                Platform.OS !== 'ios' || true ?
-                    <TouchableOpacity style={styles.actionButton} activeOpacity={0.5} onPress={() => this.onSendDiamonds()} onLongPress={() => this.goToStats('Diamonds')}>
-                        <FontAwesome name='diamond' size={18} color={this.state.diamondLevel != null && this.state.diamondLevel > 0 ? themeStyles.diamondColor.color : '#a1a1a1'} />
-                        <Text style={styles.actionText}>{this.props.post.DiamondCount}</Text>
-                    </TouchableOpacity> :
-                    <View style={styles.actionButton} />
-            }
         </View>;
     }
 }
@@ -291,16 +289,16 @@ export class PostActionsRow extends React.Component<Props, State> {
 const styles = StyleSheet.create(
     {
         actionsContainer: {
+            width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
-            marginTop: 14,
-            marginLeft: 10
+            justifyContent: 'space-between',
+            padding: paddings.cardPadding
         },
         actionButton: {
-            flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            marginRight: 10,
+            paddingHorizontal: paddings.cardPadding
         },
         actionText: {
             marginLeft: 4,
