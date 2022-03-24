@@ -10,24 +10,24 @@ class Authentication extends Component {
 
     state = {
         signUpWithWebView: false,
-        uri: 'https://github.com/facebook/react-native'
+        uri: 'https://identity.deso.org/log-in?accessLevelRequest='+2
     }
 
     goToSignUp = async () => {
         console.log('signup ','1')
-        // this.setState({
-        //     signUpWithWebView: true, 
-        //     uri: 'https://identity.deso.org/log-in?accessLevelRequest='+2
-        // })
-        const user = await this.loginAsync(4)
-        console.log('signup 4',user)
-        console.log('signup 5',user.publicKey)
+        this.setState({
+            signUpWithWebView: true, 
+            uri: 'https://identity.deso.org/log-in?accessLevelRequest='+2
+        })
+    //    const user = await this.loginAsync(4)
+        // console.log('signup 4',user)
+        // console.log('signup 5',user.publicKey)
     }
 
     loginAsync(accessLevel) {
         console.log('signup ','2')
         return new Promise((resolve, reject) => {
-          identityWindow = window.open('https://identity.deso.org/log-in?accessLevelRequest='+accessLevel, null, 'toolbar=no, width=800, height=1000, top=0, left=0')
+          identityWindow = window.open('https://identity.deso.org/log-in?accessLevelRequest='+accessLevel, "_blank")
           console.log('signup 3',identityWindow)
           loginResolve = resolve
         })
