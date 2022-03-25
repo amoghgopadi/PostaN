@@ -82,7 +82,6 @@ export async function authenticateWithDeSoIdentity(publicKey?: string): Promise<
                     text: "OK",
                     onPress: () => {}
                 }
-        
             ]);
         }
     }

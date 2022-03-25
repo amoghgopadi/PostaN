@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
 import SolidButton from '../../common/buttons/SolidButton';
 import { WebView } from 'react-native-webview';
+import Deso from 'deso-protocol';
 
 let identityWindow = null
 let loginResolve = null
@@ -14,11 +15,19 @@ class Authentication extends Component {
     }
 
     goToSignUp = async () => {
-        console.log('signup ','1')
-        this.setState({
-            signUpWithWebView: true, 
-            uri: 'https://identity.deso.org/log-in?accessLevelRequest='+2
-        })
+      console.log('signup ','1')
+      const deso = new Deso();
+      console.log('signup 2', deso)
+      const request = 3;
+      
+      const response = await deso.identity.login(request);
+      console.log('signup 4',response)
+    
+        // console.log('signup ','1')
+        // this.setState({
+        //     signUpWithWebView: true, 
+        //     uri: 'https://identity.deso.org/log-in?accessLevelRequest='+2
+        // })
     //    const user = await this.loginAsync(4)
         // console.log('signup 4',user)
         // console.log('signup 5',user.publicKey)

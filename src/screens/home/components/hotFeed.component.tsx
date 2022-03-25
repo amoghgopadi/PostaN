@@ -13,6 +13,7 @@ import { HotFeedSettingsComponent } from './hotFeedSettings.component';
 import * as SecureStore from 'expo-secure-store';
 import { constants } from '@globals/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { getHotPost, setGlobalPost, setHotPost } from '@services/localDb';
 
 interface Props {
     navigation: StackNavigationProp<ParamListBase>;
@@ -47,7 +48,7 @@ export class HotFeedComponent extends React.Component<Props, State> {
 
         this.state = {
             posts: [],
-            isLoading: true,
+            isLoading: false, // true, -> original was true
             isLoadingMore: false,
             isRefreshing: false,
             isFilterShown: false,
@@ -71,7 +72,9 @@ export class HotFeedComponent extends React.Component<Props, State> {
         this.onSettingsChange = this.onSettingsChange.bind(this);
     }
 
-    componentDidMount(): void {
+    async componentDidMount() {
+        const np = await getHotPost()
+        this.setState({ posts: np })
         this._isMounted = true;
     }
 
@@ -81,7 +84,7 @@ export class HotFeedComponent extends React.Component<Props, State> {
 
     async refresh(p_showLoading = true): Promise<void> {
         if (this._isMounted && p_showLoading) {
-            this.setState({ isLoading: true });
+            this.setState({ isLoading: false }); // --> original was true
         } else if (this._isMounted) {
             this.setState({ isRefreshing: true });
         }
@@ -169,7 +172,9 @@ export class HotFeedComponent extends React.Component<Props, State> {
         }
 
         if (this._isMounted) {
-            this.setState({ posts: allPosts });
+            this.setState({ posts: allPosts }, () => {
+                setHotPost(allPosts)
+            });
         }
     }
 

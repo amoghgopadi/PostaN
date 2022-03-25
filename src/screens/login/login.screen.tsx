@@ -47,12 +47,12 @@ export function LoginScreen({ navigation }: any) {
         bounces={false}
         contentContainerStyle={styles.contentContainerStyle}>
         <View style={[styles.container,{paddingTop: 48,}]}>
-            <Authentication />
-            {/* <Image style={[styles.logo, { height: isLogoVisible ? 200 : 0 }]} source={require('../../../assets/icon-white.png')}></Image>
+            {/* <Authentication /> */}
+           <Image style={[styles.logo, { height: isLogoVisible ? 200 : 0 }]} source={require('../../../assets/icon-white.png')}></Image>
             <Text style={styles.title}>PostaN</Text>
-            <Text style={styles.subtitle}>Powered by DeSo</Text> */}
+            <Text style={styles.subtitle}>Powered by DeSo</Text> 
         </View>    
-        {/* <View style={[styles.container, {justifyContent: 'flex-end', marginBottom: 24}]}>
+        <View style={[styles.container, {justifyContent: 'flex-end', marginBottom: 24}]}>
 
              <SolidButton 
                 buttonName={'Get started'}
@@ -71,7 +71,7 @@ export function LoginScreen({ navigation }: any) {
                  }
 
             
-        </View> */}
+        </View> 
     </ScrollView>;
 }
 

@@ -9,6 +9,7 @@ import { api, cloutFeedApi, cache } from '@services';
 import { navigatorGlobals } from '@globals/navigatorGlobals';
 import CloutFeedLoader from '@components/loader/cloutFeedLoader.component';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { getGlobalPost, setGlobalPost } from '@services/localDb';
 
 type RouteParams = {
     Home: {
@@ -27,7 +28,7 @@ interface Props {
 
 interface State {
     posts: Post[];
-    isLoading: boolean;
+    isLoading: boolean; // --> original was boolean  type
     isLoadingMore: boolean;
     isRefreshing: boolean;
     hiddenNFTOption: HiddenNFTType;
@@ -50,7 +51,7 @@ export class PostListComponent extends React.Component<Props, State> {
 
         this.state = {
             posts: [],
-            isLoading: true,
+            isLoading: false, // true, // --> original was true
             isLoadingMore: false,
             isRefreshing: false,
             hiddenNFTOption: HiddenNFTType.Details,
@@ -73,8 +74,10 @@ export class PostListComponent extends React.Component<Props, State> {
         this.refresh();
     }
 
-    componentDidMount(): void {
+    async componentDidMount() {
         this._isMounted = true;
+        const postDB = await getGlobalPost()
+        this.setState({ posts: postDB });
     }
 
     componentWillUnmount(): void {
@@ -115,7 +118,7 @@ export class PostListComponent extends React.Component<Props, State> {
     async refresh(p_showLoading = true): Promise<void> {
 
         if (this._isMounted && p_showLoading) {
-            this.setState({ isLoading: true });
+            this.setState({ isLoading: false }); // true
         } else if (this._isMounted) {
             this.setState({ isRefreshing: true });
         }
@@ -158,9 +161,11 @@ export class PostListComponent extends React.Component<Props, State> {
             }
 
             allPosts = await this.processPosts(allPosts);
+            setGlobalPost(allPosts)
 
             if (this._isMounted) {
                 this.setState({ posts: allPosts });
+                
             }
 
         } catch (p_error: any) {
@@ -174,7 +179,6 @@ export class PostListComponent extends React.Component<Props, State> {
 
     private async processPosts(p_posts: Post[]): Promise<Post[]> {
         let posts: Post[] = [];
-
         if (posts) {
             const user = await cache.user.getData();
             const blockedUsers = user?.BlockedPubKeys ? user.BlockedPubKeys : [];

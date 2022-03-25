@@ -93,7 +93,7 @@ export default function HomeStackScreen(): JSX.Element {
                                         <Ionicons name="md-notifications-outline" size={27} color={themeStyles.fontColorMain.color} />
                                         {
                                             hasBadge && <View style={styles.notificationBadge} />
-                                        }
+                                       }
                                     </>
                                 </TouchableOpacity>
                                 
