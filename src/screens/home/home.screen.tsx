@@ -15,6 +15,10 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 import * as Linking from 'expo-linking';
 import { backgroundColor } from '../../common/values/colors';
 import { radius } from '../../common/values/dimens';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import TopTabBarComponent from '@components/TopTabBar.component';
+
+const TopTab = createMaterialTopTabNavigator();
 
 type RouteParams = {
     Home: {
@@ -289,6 +293,35 @@ export class HomeScreen extends React.Component<Props, State> {
         }
     }
 
+    renderNewTabView = () => {
+        return (
+            <TopTab.Navigator
+                sceneContainerStyle={themeStyles.containerColorMain}
+                tabBar={props => <TopTabBarComponent {...props} />}
+            >
+                <TopTab.Screen name="Hot" children={props => <HotFeedComponent {...props} />} />
+                <TopTab.Screen name="Global" children={props => 
+                <PostListComponent 
+                        route={this.props.route}
+                        ref={this._postListComponent}
+                        selectedTab={this.state.selectedTab}
+                        navigation={this.props.navigation}
+                        api={api.getGlobalPosts}
+                    {...props} />} 
+                />
+                <TopTab.Screen name="Following" children={props => 
+                <PostListComponent 
+                    route={this.props.route}
+                    ref={this._postListComponent}
+                    selectedTab={this.state.selectedTab}
+                    navigation={this.props.navigation}
+                    api={api.getFollowingPosts}
+                    {...props} />} 
+                />
+            </TopTab.Navigator>
+        )
+    }
+
     render(): JSX.Element {
         const renderTab = () => {
             switch (this.state.selectedTab) {
@@ -332,24 +365,27 @@ export class HomeScreen extends React.Component<Props, State> {
         };
 
         return (
-            <GestureRecognizer style={{flex: 1, backgroundColor:backgroundColor.commonScreenBackground}} 
-            onSwipeLeft={(state) => this.swipeTabForward()}
-            onSwipeRight={(state) =>  this.swipeTabBackward()}
-            >
-            <View
-             style={[{ flex: 1, marginTop: 8, 
-                borderRadius: radius.commonContainerRadius,
-              }, {backgroundColor: backgroundColor.commonScreenBackground}]}>
-                <TabsComponent
-                    tabs={this.state.tabs}
-                    selectedTab={this.state.selectedTab}
-                    onTabClick={(tab) => this.onTabClick(tab)}
-                />
-                {
-                    renderTab()
-                }
+            <View style={{flex: 1}}>
+                {this.renderNewTabView()}
             </View>
-            </GestureRecognizer>
+            // <GestureRecognizer style={{flex: 1, backgroundColor:backgroundColor.commonScreenBackground}} 
+            // onSwipeLeft={(state) => this.swipeTabForward()}
+            // onSwipeRight={(state) =>  this.swipeTabBackward()}
+            // >
+            // <View
+            //  style={[{ flex: 1, marginTop: 8, 
+            //     borderRadius: radius.commonContainerRadius,
+            //   }, {backgroundColor: backgroundColor.commonScreenBackground}]}>
+            //     <TabsComponent
+            //         tabs={this.state.tabs}
+            //         selectedTab={this.state.selectedTab}
+            //         onTabClick={(tab) => this.onTabClick(tab)}
+            //     />
+            //     {
+            //         renderTab()
+            //     }
+            // </View>
+            // </GestureRecognizer>
           
         );
     }
