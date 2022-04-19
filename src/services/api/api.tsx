@@ -139,6 +139,20 @@ function sendDiamonds(p_userPublicKey: string, p_receiverPublicKey: string, p_po
     );
 }
 
+function sendDeso(p_userPublicKey: string, p_receiverPublicKey: string, amountdeso: number) {
+    const route = 'send-deso';
+
+    return post(
+        route,
+        {
+            SenderPublicKeyBase58Check: p_userPublicKey,
+            RecipientPublicKeyOrUsername: p_receiverPublicKey,
+            AmountNanos: amountdeso,
+            MinFeeRateNanosPerKB: getMinFeeRateNanosPerKB(),
+        }
+    );
+}
+
 function getProfile(p_userKeys: string[]) {
     const route = 'get-users-stateless';
 
@@ -760,5 +774,6 @@ export const api = {
     authorizeDerivedKey,
     appendExtraDataToTransaction,
     getUsersDerivedKeys,
-    getTransactions
+    getTransactions,
+    sendDeso
 };

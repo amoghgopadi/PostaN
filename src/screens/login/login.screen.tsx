@@ -54,11 +54,11 @@ export function LoginScreen({ navigation }: any) {
         </View>    
         <View style={[styles.container, {justifyContent: 'flex-end', marginBottom: 24}]}>
 
-             <SolidButton 
+             {/*<SolidButton 
                 buttonName={'Get started'}
                 onPress={goToSignUp}
                 style={styles.signupButton}
-             />
+             />*/}
           
                 {
                 loginWithUsername ?
@@ -91,12 +91,12 @@ const styles = StyleSheet.create(
         title: {
             fontSize: 36,
             fontWeight: 'bold',
-            color: 'white'
+            color: 'black'
         },
         subtitle: {
             fontSize: 13,
             marginBottom: 16,
-            color: 'white'
+            color: 'black'
         },
         logo: {
             marginTop: 30,

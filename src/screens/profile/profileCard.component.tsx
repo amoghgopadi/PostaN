@@ -58,7 +58,6 @@ export class ProfileCard extends React.Component<Props, State> {
         fetch('https://open.er-api.com/v6/latest/USD')
         .then((response) => response.json())
         .then((json) => {
-            console.log("Json, + " , json.rates.INR)
             this.setState({
                 usdToRupeesValue: json.rates.INR
             })
@@ -180,8 +179,7 @@ export class ProfileCard extends React.Component<Props, State> {
                 
             const calculateDiamondsWorth = (count: number): number => {
                 const nanos = 5000 * Math.pow(10, count);
-                console.log('earned count = *****', count)
-                console.log('earned nanose = ', nanos)
+                
                 return calculateDeSoInUSD(nanos, this.state.usdToRupeesValue);
             };
 
@@ -199,24 +197,7 @@ export class ProfileCard extends React.Component<Props, State> {
             }
 
                 totaldiamondvalue += totaldiamondlevelmap['1'] * calculateDiamondsWorth(1) + totaldiamondlevelmap['2'] * calculateDiamondsWorth(2) + totaldiamondlevelmap['3'] * calculateDiamondsWorth(3) + totaldiamondlevelmap['4'] * calculateDiamondsWorth(4) + totaldiamondlevelmap['5'] * calculateDiamondsWorth(5) + totaldiamondlevelmap['6'] * calculateDiamondsWorth(6);
-                console.log('earned = 1',  totaldiamondlevelmap['1'])
-                console.log('earned = 2',  totaldiamondlevelmap['2'])
-                console.log('earned = 3',  totaldiamondlevelmap['3'])
-                console.log('earned = 4',  totaldiamondlevelmap['4'])
-                console.log('earned = 5',  totaldiamondlevelmap['5'])
-                console.log('earned = 6',  totaldiamondlevelmap['6'])
-
-
-                console.log('earned = 1 --',   calculateDiamondsWorth(1) )
-                console.log('earned = 2 --', calculateDiamondsWorth(2) )
-                console.log('earned = 3 --',  calculateDiamondsWorth(3) )
-                console.log('earned = 4 --',  calculateDiamondsWorth(4) )
-                console.log('earned = 5 --', calculateDiamondsWorth(5) )
-                console.log('earned = 6 --',  calculateDiamondsWorth(6) )
-
-
                 
-                console.log('earned = ', totaldiamondvalue)
 
                 if (this._isMounted) {
                     this.setState(

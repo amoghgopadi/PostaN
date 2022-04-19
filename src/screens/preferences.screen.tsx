@@ -167,7 +167,7 @@ export class PreferencesScreen extends React.Component<Props, State>{
                         />
                     </View>
             }
-            <TouchableOpacity
+            {/*<TouchableOpacity
                 style={[styles.cloutCastFeedSettingsContainer, themeStyles.containerColorMain, themeStyles.borderColor]}
                 onPress={this.goToAppearance}
                 activeOpacity={1}>
@@ -176,7 +176,7 @@ export class PreferencesScreen extends React.Component<Props, State>{
                     <Text style={[styles.appearanceText, themeStyles.fontColorSub]}>{this.state.appearanceLabel}</Text>
                     <MaterialIcons name="keyboard-arrow-right" size={27} color={themeStyles.fontColorSub.color} />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
             {
                 globals.readonly ? undefined :
                     <View style={[styles.cloutCastFeedSettingsContainer, themeStyles.borderColor]}>
@@ -209,10 +209,7 @@ export class PreferencesScreen extends React.Component<Props, State>{
                         name: 'Following',
                         value: FeedType.Following
                     },
-                    {
-                        name: 'Recent',
-                        value: FeedType.Recent
-                    }
+                    
                 ]}
                 value={this.state.feed}
                 onValueChange={(value: string | string[]) => this.onFeedTypeChange(value as FeedType)}

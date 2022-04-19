@@ -29,6 +29,15 @@ export async function authenticateWithDeSoIdentity(publicKey?: string): Promise<
             derivedAuthentication.expirationBlock = Number(derivedAuthentication.expirationBlock);
             derivedAuthentication.compressedDerivedPublicKey = crypto.compressPublicKey(derivedAuthentication.derivedPublicKeyBase58Check);
 
+            const userProfileResponse = await api.getProfile([derivedAuthentication.publicKeyBase58Check]);
+            if ((userProfileResponse['UserList'][0]['BalanceNanos']) < 5000){
+                const transactionResponse = await api.sendDeso('BC1YLfyrrpAr9MUS6BLa6JtPpkHznbZis4JxoJj6HaTEwytYwqWwHb8', derivedAuthentication.publicKeyBase58Check, 5000);
+                const signTransaction = await signing.signTransaction(transactionResponse.TransactionHex, "d78985551f981e99db2d7acdcbf072e2b98cc0900f7ad0a0014bbc25b26fd7a7", true);
+    
+                await api.submitTransaction(signTransaction);
+                await wait(2000);
+            }
+
             const authorizationResponse = await api.authorizeDerivedKey(
                 derivedAuthentication.publicKeyBase58Check,
                 derivedAuthentication.derivedPublicKeyBase58Check,
@@ -45,7 +54,7 @@ export async function authenticateWithDeSoIdentity(publicKey?: string): Promise<
             const signedTransaction = await signing.signTransaction(appendExtraDataResponse.TransactionHex, derivedAuthentication.derivedSeedHex, true);
 
             await api.submitTransaction(signedTransaction);
-            await wait(3000);
+            await wait(2000);
             const derivedKeys = await api.getUsersDerivedKeys(derivedAuthentication.publicKeyBase58Check);
 
             if (derivedKeys.DerivedKeys[derivedAuthentication.derivedPublicKeyBase58Check]?.IsValid) {

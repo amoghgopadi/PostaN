@@ -11,7 +11,6 @@ import { navigatorGlobals } from '@globals/navigatorGlobals';
 import CloutFeedLoader from '@components/loader/cloutFeedLoader.component';
 import { api, cache } from '@services';
 import { RouteProp } from '@react-navigation/native';
-// https://open.er-api.com/v6/latest/USD
 
 interface Section {
     header: boolean;
@@ -78,11 +77,15 @@ export class WalletScreen extends React.Component<Props, State> {
 
 
         this.calculateConversionRates();
+
+        this.loadData();
        
         this.loadData = this.loadData.bind(this);
         this.onTabClick = this.onTabClick.bind(this);
 
         navigatorGlobals.refreshWallet = () => {
+        this.loadData();
+
             if (this._sectionListRef) {
                 this._sectionListRef?.scrollToLocation(
                     {
@@ -114,7 +117,6 @@ export class WalletScreen extends React.Component<Props, State> {
          fetch('https://open.er-api.com/v6/latest/USD')
         .then((response) => response.json())
         .then((json) => {
-            console.log("Json, + " , json.rates.INR)
             this.setState({
                 usdToRupeesValue: json.rates.INR
             })
@@ -372,3 +374,6 @@ const styles = StyleSheet.create(
         }
     }
 );
+
+
+

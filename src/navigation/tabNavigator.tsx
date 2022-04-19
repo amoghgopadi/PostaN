@@ -49,7 +49,18 @@ const TabElement = ({ tab, onPress, selectedTab }: any) => {
     } else if (tab.name === 'SearchStack') {
         icon = <Ionicons name="search-outline" size={28} color={iconColor} />;
     } else if (tab.name === 'ProfileStack') {
-        icon = <EvilIcons name="user" size={36} color={iconColor} />;
+        icon = (!profilePic.startsWith('undefined') ? 
+            <Image
+              style={[
+                styles.profileImage,
+                {
+                  borderWidth: selectedTab === tab.name ? 2 : 0,
+                  borderColor: iconColor,
+                },
+              ]}
+              source={{ uri: profilePic }}
+            /> : <EvilIcons name="user" size={36} color={iconColor} />
+          );
     }
 
     function openProfileManager() {
@@ -124,6 +135,10 @@ const TabBar = ({ state }: any) => {
                 }
             }
         } else {
+            if (p_screenName === "WalletStack") {
+                navigatorGlobals.refreshWallet();
+              }
+
             navigation.navigate(p_screenName);
         }
     }

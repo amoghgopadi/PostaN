@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { ParamListBase, useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { authenticateWithDeSoIdentity } from '@services/authorization/deSoAuthentication';
 import { LoginButton } from '@types';
-import BorderButton from '../../../common/buttons/BorderButton';
+import SolidButton from '../../../common/buttons/SolidButton';
 
 interface Props {
     onLoginWithUsername: () => void;
@@ -48,7 +48,7 @@ export function LoginOptions(props: Props): JSX.Element {
     const buttons: LoginButton[] = [
         {
             label: '',
-            title: 'Login',
+            title: 'Get Started',
             action: loginWithDeSoIdentity
         },
     ];
@@ -57,7 +57,7 @@ export function LoginOptions(props: Props): JSX.Element {
         {
             buttons.map(
                 (button: LoginButton, index: number) => <View key={index} style={{ width: '100%', alignItems: 'center', marginBottom: 8 }}>
-                    <BorderButton onPress={button.action} buttonName={button.title}/>
+                    <SolidButton onPress={button.action} buttonName={button.title}/>
                 </View>
             )
         }
@@ -71,7 +71,6 @@ const styles = StyleSheet.create(
             marginTop: 30,
         },
         loginButton: {
-            backgroundColor: '#2F4F4F',
             color: 'white',
             width: '90%',
             maxWidth: 330,
