@@ -45,7 +45,7 @@ const TabElement = ({ tab, onPress, selectedTab }: any) => {
     } else if (tab.name === 'WalletStack') {
         icon = <Ionicons name="wallet-outline" size={28} color={iconColor} />;
     } else if (tab.name === 'CreatePostStack') {
-        icon = <Ionicons name="add-circle-sharp" size={50} color={iconColor} />;
+        icon = <Ionicons name="add-circle-outline" size={28} color={iconColor} />;
     } else if (tab.name === 'SearchStack') {
         icon = <Ionicons name="search-outline" size={28} color={iconColor} />;
     } else if (tab.name === 'ProfileStack') {
@@ -161,18 +161,8 @@ const TabBar = ({ state }: any) => {
                 }
                 <View>
                     <TouchableOpacity
-                    style = {{
-                        marginBottom: 24,
-                        borderWidth: 10, 
-                        borderRadius: 60,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: 'white',
-                        paddingBottom: 16,
-                        borderColor: 'white',
-                        paddingLeft: 4
-                        
-                    }}
+                    
+                    
                     onPress={() => navigation.push('TabNavigator', {
                         screen: 'HomeStack',
                         params: {
@@ -184,7 +174,7 @@ const TabBar = ({ state }: any) => {
                         }
                     })}>
                         <Ionicons
-                         name="add-circle" size={64} color={iconColors.addIcon} 
+                         name="add-circle-outline" size={48} color={iconColors.notSelectedIcon} 
                          />
                     </TouchableOpacity>
                 </View>

@@ -64,7 +64,6 @@ export default class ProfileInfoModalComponent extends React.Component<Props, St
 
         this._intensityLevel = settingsGlobals.darkMode ? 120 : 100;
 
-        this.goToChat = this.goToChat.bind(this);
         this.onFollowButtonClick = this.onFollowButtonClick.bind(this);
         this.getNotificationSubscriptions = this.getNotificationSubscriptions.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
@@ -246,27 +245,7 @@ export default class ProfileInfoModalComponent extends React.Component<Props, St
             ), 300);
     }
 
-    private goToChat(): void {
-        if (this._isMounted) {
-            const newProfile: Profile = this.getProfileCopy(this.props.profile);
-            this.props.navigation.navigate(
-                'MessageStack',
-                {
-                    screen: 'Chat',
-                    params: {
-                        contactWithMessages: {
-                            Messages: [],
-                            ProfileEntryResponse: newProfile,
-                            NumMessagesRead: 0,
-                            PublicKeyBase58Check: newProfile.PublicKeyBase58Check
-                        },
-                        loadMessages: true
-                    }
-                }
-            );
-        }
-        this.close();
-    }
+    
 
     private async onFollowButtonClick(): Promise<void> {
 
@@ -359,12 +338,6 @@ export default class ProfileInfoModalComponent extends React.Component<Props, St
                 onPress: this.onFollowButtonClick.bind(this),
                 subscription: OptionType.Follow,
                 hasLoader: true
-            },
-            {
-                title: 'Send a Message',
-                onPress: this.goToChat.bind(this),
-                subscription: OptionType.None,
-                hasLoader: false
             },
             {
                 title: `Turn ${notificationText} Post Notifications`,

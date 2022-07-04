@@ -278,7 +278,7 @@ export class PostActionsRow extends React.Component<Props, State> {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.actionButton} activeOpacity={0.5} onPress={() => this.goToReclout()} onLongPress={() => this.goToStats('Reclouts')}>
-                <MaterialCommunityIcons name='twitter-retweet' size={28} color={this.props.post.PostEntryReaderState?.RepostedByReader ? '#5ba358' : '#a1a1a1'} />
+                <FontAwesome name='retweet' size={22} color={this.props.post.PostEntryReaderState?.RepostedByReader ? '#5ba358' : '#a1a1a1'} />
                 <Text style={styles.actionText}>{this.props.post.RepostCount + this.props.post.QuoteRepostCount}</Text>
             </TouchableOpacity>
         </View>;

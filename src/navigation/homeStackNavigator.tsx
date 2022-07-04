@@ -20,7 +20,6 @@ const HomeStack = createStackNavigator();
 
 export default function HomeStackScreen(): JSX.Element {
 
-    const [messagesCount, setMessagesCount] = useState<number>(0);
     const [hasBadge, setHasBadge] = useState<boolean>(false);
 
     const isMounted = useRef<boolean>(true);
@@ -40,17 +39,9 @@ export default function HomeStackScreen(): JSX.Element {
                 }
             );
 
-            const unsubscribeRefreshMessages = eventManager.addEventListener(
-                EventType.RefreshMessages,
-                (count: number) => {
-                    if (isMounted) {
-                        setMessagesCount(count);
-                    }
-                }
-            );
+            
             return () => {
                 isMounted.current = false;
-                unsubscribeRefreshMessages();
                 unsubscribeLastNotificationIndex();
             };
         },
@@ -136,23 +127,8 @@ export default function HomeStackScreen(): JSX.Element {
 
 const styles = StyleSheet.create(
     {
-        messagesBadge: {
-            width: 14,
-            height: 14,
-            borderRadius: 10,
-            position: 'absolute',
-            right: 2,
-            top: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#eb1b0c'
-        },
-        messagesCount: {
-            fontSize: 10,
-            color: 'white',
-            fontWeight: '600',
-            marginLeft: 1
-        },
+        
+        
         notificationBadge: {
             width: 6,
             height: 6,

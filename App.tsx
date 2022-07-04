@@ -22,7 +22,6 @@ import { authentication } from '@services/authorization/authentication';
 import { ProfileManagerComponent } from '@components/profileManager.component';
 import { eventManager, hapticsManager } from '@globals/injector';
 import { TabNavigator } from './src/navigation/tabNavigator';
-import MessageStackScreen from './src/navigation/messageStackNavigator';
 import { ActionSheetConfig } from '@services/actionSheet';
 import CloutFeedLoader from '@components/loader/cloutFeedLoader.component';
 import { stackConfig } from './src/navigation/stackNavigationConfig';
@@ -32,7 +31,6 @@ import ProfileInfoModalComponent from '@components/profileInfo/profileInfoModal.
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { Alert, Appearance, Platform, StatusBar, View } from 'react-native';
 import { AppState } from 'react-native';
-import { messagesService } from './src/services/messagesServices';
 import PlaceBidFormComponent from '@screens/nft/components/placeBidForm.component';
 import { UserContext } from '@globals/userContext';
 import { Post, HiddenNFTType } from '@types';
@@ -63,7 +61,6 @@ export default function App(): JSX.Element {
   const [coinPrice, setCoinPrice] = useState<number>();
   const [isThemeSet, setIsThemeSet] = useState<boolean>(false);
   const notificationsInterval = useRef(0);
-  const messagesInterval = useRef(0);
   const appState = useRef(AppState.currentState);
   const isMounted = useRef<boolean>(true);
   const intervalTiming = 60000;
@@ -74,10 +71,8 @@ export default function App(): JSX.Element {
     }
     if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
       notificationsInterval.current = window.setInterval(notificationListener, intervalTiming);
-      messagesInterval.current = window.setInterval(globals.dispatchRefreshMessagesEvent, intervalTiming);
     } else {
       window.clearInterval(notificationsInterval.current);
-      window.clearInterval(messagesInterval.current);
     }
     appState.current = nextAppState;
   }
@@ -137,7 +132,6 @@ export default function App(): JSX.Element {
         unsubscribeBiddingForm();
         unsubscribeProfileInfo();
         window.clearInterval(notificationsInterval.current);
-        window.clearInterval(messagesInterval.current);
         isMounted.current = false;
       };
     },
@@ -248,14 +242,7 @@ export default function App(): JSX.Element {
     }
   }
 
-  globals.dispatchRefreshMessagesEvent = () => {
-    messagesService.getUnreadMessages()
-      .then(
-        (response: number) => {
-          eventManager.dispatchEvent(EventType.RefreshMessages, response);
-        }
-      ).catch(() => undefined);
-  };
+  
 
   globals.acceptTermsAndConditions = () => {
     if (isMounted) {
@@ -305,11 +292,8 @@ export default function App(): JSX.Element {
           }
           notificationsService.registerPushToken().catch(() => undefined);
           notificationListener();
-          globals.dispatchRefreshMessagesEvent();
           window.clearInterval(notificationsInterval.current);
-          window.clearInterval(messagesInterval.current);
           notificationsInterval.current = window.setInterval(notificationListener, intervalTiming);
-          messagesInterval.current = window.setInterval(globals.dispatchRefreshMessagesEvent, intervalTiming);
         }
         await setTheme();
         await hapticsManager.init();
@@ -339,7 +323,6 @@ export default function App(): JSX.Element {
       await revokeDerivedKey(globals.user.publicKey).catch(() => undefined);
       await authentication.removeAuthenticatedUser(globals.user.publicKey);
       window.clearInterval(notificationsInterval.current);
-      window.clearInterval(messagesInterval.current);
       const loggedInPublicKeys = await authentication.getAuthenticatedUserPublicKeys();
 
       if (loggedInPublicKeys?.length > 0) {
@@ -456,13 +439,7 @@ export default function App(): JSX.Element {
                       }}
                     />
 
-                    <Stack.Screen
-                      name="MessageStack"
-                      component={MessageStackScreen}
-                      options={{
-                        headerShown: false,
-                      }}
-                    />
+                    
                   </React.Fragment>
               }
             </Stack.Navigator >

@@ -110,9 +110,7 @@ const styles = StyleSheet.create(
         starIcon: {
             marginBottom: 3
         },
-        chatHeaderUsername: {
-            fontSize: 16,
-        },
+        
         darkText: {
             color: '#ebebeb'
         }

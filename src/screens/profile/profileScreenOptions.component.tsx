@@ -192,11 +192,7 @@ export function ProfileScreenOptionsComponent(
                 onPress={onFollowButtonClick}
                 styles={styles.followButton}
             />
-            <CloutFeedButton
-                title={'Message'}
-                onPress={goToChat}
-                styles={styles.followButton}
-            />
+            
             <TouchableOpacity
                 activeOpacity={1}
                 onPress={onProfileOptionsClick}

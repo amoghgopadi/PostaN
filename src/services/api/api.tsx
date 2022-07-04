@@ -406,31 +406,7 @@ function getNotifications(p_userKey: string, p_startIndex: number, p_count: numb
     );
 }
 
-function getMessages(
-    p_userKey: string,
-    p_followersOnly: boolean,
-    p_followingOnly: boolean,
-    p_holdersOnly: boolean,
-    p_holdingsOnly: boolean,
-    p_numToFetch: number,
-    p_sortAlgorithm: 'time' | 'holders' | 'clout' | 'followers',
-    p_lastPublicKey: string) {
-    const route = 'get-messages-stateless';
 
-    return post(
-        route,
-        {
-            FetchAfterPublicKeyBase58Check: p_lastPublicKey,
-            FollowersOnly: p_followersOnly,
-            FollowingOnly: p_followingOnly,
-            HoldersOnly: p_holdersOnly,
-            HoldingsOnly: p_holdingsOnly,
-            NumToFetch: p_numToFetch,
-            PublicKeyBase58Check: p_userKey,
-            SortAlgorithm: p_sortAlgorithm
-        }
-    );
-}
 
 function sendMessage(p_senderPublicKey: string, p_recipientPublicKey: string, p_message: string) {
     const route = 'send-message-stateless';
@@ -545,18 +521,6 @@ function blockUser(p_userKey: string, p_blockedUserKey: string, p_jwt: string, p
     );
 }
 
-function markContactMessagesRead(p_publicKey: string, p_contactPublicKey: string, p_jwt: string) {
-    const route = 'mark-contact-messages-read';
-
-    return post(
-        route,
-        {
-            UserPublicKeyBase58Check: p_publicKey,
-            JWT: p_jwt,
-            ContactPublicKeyBase58Check: p_contactPublicKey
-        }
-    );
-}
 
 function getAppState() {
     const route = 'get-app-state';
@@ -654,6 +618,7 @@ function authorizeDerivedKey(
     derivedPublicKey: string,
     accessSignature: string,
     expirationBlock: number,
+    transactionHex: string,
     deleteKey: boolean
 ) {
     const route = 'authorize-derived-key';
@@ -666,6 +631,8 @@ function authorizeDerivedKey(
             ExpirationBlock: expirationBlock,
             AccessSignature: accessSignature,
             DeleteKey: deleteKey,
+            DerivedKeySignature: true,
+            transactionSpendingLimitHex: transactionHex,
             MinFeeRateNanosPerKB: 10000
         }
     );
@@ -746,7 +713,7 @@ export const api = {
     searchProfiles,
     getLeaderBoard,
     getNotifications,
-    getMessages,
+    
     sendMessage,
     getExchangeRate,
     getSinglePost,
@@ -765,7 +732,6 @@ export const api = {
     uploadImageAndroid,
     getTikTokFullVideoId,
     updateProfile,
-    markContactMessagesRead,
     getLikesForPost,
     getRecloutersForPost,
     getDiamondSendersForPost,

@@ -28,6 +28,7 @@ export interface DerivedAuthenticatedUser {
     expirationBlock: number;
     derived: true;
     expireDate: Date;
+    transactionSpendingLimitHex: string;
 }
 
 export interface AuthenticatedUserEncryptionKey {
@@ -44,4 +45,5 @@ export interface DerivedAuthentication {
     expirationBlock: number;
     jwt: string;
     publicKeyBase58Check: string;
+    transactionSpendingLimitHex: string;
 }

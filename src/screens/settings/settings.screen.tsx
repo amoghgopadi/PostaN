@@ -61,7 +61,7 @@ export function SettingsScreen({ navigation }: Props) {
             action: () => globals.onLogout()
         },
         {
-            title: 'PostaN v1.2.0',
+            title: 'PostaN v1.3.0',
             icon: <AntDesign name="copyright" style={styles.iconMargin} size={24} color={themeStyles.fontColorMain.color} />,
             action: () => { return; }
         }

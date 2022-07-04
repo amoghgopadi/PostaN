@@ -10,7 +10,6 @@ import { globals } from '@globals/globals';
 import * as SecureStore from 'expo-secure-store';
 import { themeStyles } from '@styles/globalColors';
 import { ScrollView } from 'react-native-gesture-handler';
-import * as ScreenCapture from 'expo-screen-capture';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 type RouteParams = {
@@ -54,11 +53,9 @@ export class IdentityScreen extends React.Component<Props, State> {
         this.back = this.back.bind(this);
         this.selectAccount = this.selectAccount.bind(this);
 
-        ScreenCapture.preventScreenCaptureAsync();
     }
 
     componentWillUnmount() {
-        ScreenCapture.allowScreenCaptureAsync();
     }
 
     loadAccount() {

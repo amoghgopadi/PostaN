@@ -283,25 +283,7 @@ export function ProfileScreen({ route }: Route): JSX.Element {
         }
     }
 
-    function goToChat(): void {
-        const newProfile: Profile = getProfileCopy(profile);
-
-        navigation.navigate(
-            'MessageStack',
-            {
-                screen: 'Chat',
-                params: {
-                    contactWithMessages: {
-                        Messages: [],
-                        ProfileEntryResponse: newProfile,
-                        NumMessagesRead: 0,
-                        PublicKeyBase58Check: newProfile.PublicKeyBase58Check
-                    },
-                    loadMessages: true
-                }
-            }
-        );
-    }
+    
 
     async function onTabClick(tabName: string): Promise<void> {
         tempTab = tabName;
@@ -472,11 +454,10 @@ export function ProfileScreen({ route }: Route): JSX.Element {
         {
             !globals.readonly &&
                 !isLoggedInUser ?
-                <ProfileScreenOptionsComponent
-                    publicKey={profile.PublicKeyBase58Check}
-                    goToChat={goToChat}
+                <OwnProfileOptionsComponent
                     username={profile.Username}
-                />
+                    publicKey={profile.PublicKeyBase58Check}
+                    navigation={navigation} />
                 :
                 <OwnProfileOptionsComponent
                     username={profile.Username}

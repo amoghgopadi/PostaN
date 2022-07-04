@@ -29,7 +29,6 @@ interface State {
     usersYouHODL: CreatorCoinHODLer[];
     sections: Section[];
     refreshing: boolean;
-    usdToRupeesValue: number
     
 }
 
@@ -72,11 +71,9 @@ export class WalletScreen extends React.Component<Props, State> {
             usersYouHODL: [],
             sections: [],
             refreshing: false,
-            usdToRupeesValue: 74.5
         };
 
 
-        this.calculateConversionRates();
 
         this.loadData();
        
@@ -113,20 +110,7 @@ export class WalletScreen extends React.Component<Props, State> {
             .selectedTab !== this.state.selectedTab;
     }
 
-    private calculateConversionRates() {
-         fetch('https://open.er-api.com/v6/latest/USD')
-        .then((response) => response.json())
-        .then((json) => {
-            this.setState({
-                usdToRupeesValue: json.rates.INR
-            })
-            this.loadData();
-        })
-        .catch((error) => {
-          console.error(error);
-            this.loadData()
-        });
-    }
+    
 
     private loadData() {
         if (this._isMounted) {
@@ -146,8 +130,8 @@ export class WalletScreen extends React.Component<Props, State> {
                 const user: User = responses[1].UserList[0];
                 const deSoNanos = 1000000000.0;
                 const balanceDeSo = (user.BalanceNanos / deSoNanos).toFixed(5);
-                const deSoPriceUsd = calculateAndFormatDeSoInUsd(deSoNanos, this.state.usdToRupeesValue);
-                const balanceUsd = calculateAndFormatDeSoInUsd(user.BalanceNanos, this.state.usdToRupeesValue);
+                const deSoPriceUsd = calculateAndFormatDeSoInUsd(deSoNanos);
+                const balanceUsd = calculateAndFormatDeSoInUsd(user.BalanceNanos);
 
                 const usersYouHODL = user.UsersYouHODL;
 
@@ -162,7 +146,7 @@ export class WalletScreen extends React.Component<Props, State> {
                                 userYouHODL.BalanceNanos,
                                 userYouHODL.ProfileEntryResponse.CoinEntry
                             );
-                            const amountUsd = calculateDeSoInUSD(amountYouGetIfYouSold, this.state.usdToRupeesValue);
+                            const amountUsd = calculateDeSoInUSD(amountYouGetIfYouSold);
 
                             const coinsAmount = userYouHODL.BalanceNanos / 1000000000;
                             userYouHODL.ProfileEntryResponse.CoinPriceUSD = amountUsd / coinsAmount;
