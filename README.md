@@ -16,6 +16,9 @@ npm install
 ```
 expo start
 ```
+Note: 
+1) To know more on how to run this app, visit [expo-docs](https://docs.expo.dev/get-started/create-a-new-app/)
+2) If you get any errors while running `npm install`, please use `npm install --legacy-peer-deps` to fix upstream dependency conflict
 
 ## License
 
